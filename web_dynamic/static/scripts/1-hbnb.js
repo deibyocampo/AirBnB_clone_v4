@@ -1,19 +1,17 @@
+let amenityChecked = [];
+
 $('document').ready(function () {
-  let idDict = {};
-  $('input:checkbox').change(function () {
-    if ($this).is(':checked')) {
-      idDict[$(this).attr('data-name')] = $(this).attr('data-id');
+  $(".amenities input").change(function() {
+    if ($(this).prop("checked")) {
+      amenityChecked.push($(this).attr("data-name"));
     } else {
-      delete idDict[$(this).attr('data-name')];
+      let name = $(this).attr("data-name");
+      let index = amenityChecked.indexOf(name);
+      if (index > -1) {
+        amenityChecked.splice(index, 1);
+      }
     }
-    let list = [];
-    $.each(idDict, function (index, value) {
-      list.push(index);
-    });
-    if (list.length === 0) {
-      $('.amenities h4').html('&nbsp;');
-    } else {
-      $('amenities h4').text(list.join(', '));
-    }
+    amenityChecked.sort();
+    $(".amenities h4").text(amenityChecked.join(", "));
   });
 });
